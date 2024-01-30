@@ -1,6 +1,7 @@
 """Здесь надо написать тесты с использованием pytest для модуля item."""
 import pytest
 from src.item import Item
+from config import ITEMS
 
 
 @pytest.fixture
@@ -19,7 +20,16 @@ def test_calculate_total_price(item):
 
 
 def test_apply_discount(item):
-    assert item.pay_rate == 0.8
+    item.pay_rate == 0.8
     item.apply_discount()
-    assert item.price == 8000
+    item.price == 8000
 
+
+def test_instantiate_from_csv():
+    Item.instantiate_from_csv(ITEMS)
+    assert len(Item.all) == 5
+
+
+def test_string_to_number():
+    assert Item.string_to_number('5') == 5
+    assert Item.string_to_number('1.5') == 1
