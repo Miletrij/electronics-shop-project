@@ -2,12 +2,16 @@
 import pytest
 from src.item import Item
 from config import ITEMS
+from src.phone import Phone
 
 
 @pytest.fixture
 def item():
     return Item("Смартфон", 10000, 20)
 
+@pytest.fixture
+def phone():
+    return Phone("Смартфон", 10000, 20, 2)
 
 def test_name(item):
     assert item.name == "Смартфон"
@@ -38,3 +42,10 @@ def test_repr_and_str():
     item1 = Item("Смартфон", 10000, 20)
     assert repr(item1) == "Item('Смартфон', 10000, 20)"
     assert str(item1) == 'Смартфон'
+
+def test_add(phone, item):
+    assert item + phone == 40
+
+def test_add_error(phone, item):
+    with pytest.raises(ValueError):
+        item + 2
