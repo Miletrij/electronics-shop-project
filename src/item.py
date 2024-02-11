@@ -21,6 +21,11 @@ class Item:
         self.quantity = quantity
         self.all.append(self)
 
+    def __add__(self, other):
+        if not isinstance(other, Item):
+            raise ValueError("Можно складывать только экземпляры класса и дочерние.")
+        return self.quantity + other.quantity
+
     def __repr__(self):
         return f"{self.__class__.__name__}('{self.name}', {self.price}, {self.quantity})"
 
